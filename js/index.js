@@ -35,6 +35,7 @@ const renderArticle = data => {
     renderElement('div', 'news-item-description', description, article);
     renderElement('div', 'news-item-date', publishedAt, article);
     news.appendChild(article);
+    news.scrollIntoView();
 }
 
 const renderElement = (tag, className, content, parent) => {
