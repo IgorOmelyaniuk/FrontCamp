@@ -4,12 +4,13 @@ links.forEach(link => link.addEventListener('click', e => getNews(e)));
 
 const getNews = e =>  {
     const element = e.target;
-    toggleActiveClass(element);
     const source = element.dataset.source;
+    toggleActiveClass(element);
     sendRequest(source);
 }
 
 const toggleActiveClass = element => {
+    const news = document.querySelector('.news');
     links.forEach(link => link.classList.remove('active'));
     element.classList.add('active');
 }
@@ -19,14 +20,15 @@ const sendRequest = source => {
     .then(response => response.json())
     .then(data => {
         const {articles} = data;
-        document.querySelector('.news').innerHTML = '';
-        articles.forEach(article => renderArticle(article))
+        const news = document.querySelector('.news');
+        news.innerHTML = '';
+        articles.forEach(article => renderArticle(article, news));
+        news.scrollIntoView();
     })
-    .catch(err => alert(`Request error: ${err}`))
+    .catch(err => console.log(`Request error: ${err}`))
 }
 
-const renderArticle = data => {
-    const news = document.querySelector('.news');
+const renderArticle = (data, news) => {
     const article = document.createElement('div');
     article.classList.add('news-item');
     const { title, publishedAt, description, urlToImage } = data;
@@ -35,7 +37,6 @@ const renderArticle = data => {
     renderElement('div', 'news-item-description', description, article);
     renderElement('div', 'news-item-date', publishedAt, article);
     news.appendChild(article);
-    news.scrollIntoView();
 }
 
 const renderElement = (tag, className, content, parent) => {
