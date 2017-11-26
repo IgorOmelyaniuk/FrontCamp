@@ -12,6 +12,46 @@
     }
 }
 
-@media screen and (max-width: 940px) {
-
+@media screen and (max-width: 930px) {
+    .navigation {
+        width: 280px;
+    }
+    .news {
+        margin-left: 280px;
+        justify-content: center;
+    }
+    .news-item {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .news:after {
+        display: none;
+    }
 }
+
+@media screen and (max-width: 650px) {
+    .header-title {
+        padding: 0;
+        text-align: center;
+    }
+    .content {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .navigation {
+        position: relative;
+        width: 280px;
+        top: 0;
+        padding: 20px;
+    }
+    .news {
+        margin-left: 0;
+        width: 100%;
+        padding: 30px 20px 0;
+    }
+    .news-title {
+        margin-bottom: 30px;
+        font-size: 21px;
+    }
+    
+} 
