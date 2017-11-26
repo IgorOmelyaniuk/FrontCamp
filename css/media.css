@@ -1,0 +1,17 @@
+@media screen and (max-width: 1320px) {
+    .navigation {
+        width: 30%;
+    }
+    .news {
+        margin-left: 30%;
+        width: 70%;
+        padding: 50px 30px 0;
+    }
+    .news-item {
+        width: 46%;
+    }
+}
+
+@media screen and (max-width: 940px) {
+
+}
