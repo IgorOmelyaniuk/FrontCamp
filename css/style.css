@@ -99,10 +99,10 @@ img {
 }
 
 .navigation-link:nth-child(2)::before {
-    background-image: url('../images/cnn.png');
-    width: 56px;
-    height: 32px;
-    top: 17px;
+    background-image: url('../images/lenta.png');
+    width: 68px;
+    height: 15px;
+    top: 29px;
 }
 
 .navigation-link:nth-child(3)::before {
@@ -134,7 +134,7 @@ img {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 50px 70px 0;
+    padding: 50px 60px 0;
     background: #f1f5f8;
     box-sizing: border-box;
     position: relative;
