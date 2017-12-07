@@ -1,12 +1,20 @@
+const API_KEY = '66e811207ca040b7815bd78758d16e1b';
+const API_URL = 'https://newsapi.org/v2/everything?';
+const news = document.querySelector('.news');
+const nav = document.querySelector('.navigation');
 const links = document.querySelectorAll('.navigation-link');
 
-links.forEach(link => link.addEventListener('click', e => getNews(e)));
+nav.addEventListener('click', e => getNews(e));
 
-const getNews = e =>  {
+const getNews = async (e) =>  {
     const element = e.target;
-    const source = element.dataset.source;
-    toggleActiveClass(element);
-    sendRequest(source);
+    
+    if (element.classList.contains('navigation-link')) {
+        const source = element.dataset.source;
+        toggleActiveClass(element);
+        const articles = await sendRequest(source);
+        renderNews(articles);
+    }
 }
 
 const toggleActiveClass = element => {
@@ -15,39 +23,35 @@ const toggleActiveClass = element => {
     element.classList.add('active');
 }
 
-const sendRequest = source => {
-    fetch(`https://newsapi.org/v2/everything?sources=${source}&apiKey=66e811207ca040b7815bd78758d16e1b`)
-    .then(response => response.json())
-    .then(data => {
-        const {articles} = data;
-        const news = document.querySelector('.news');
-        news.innerHTML = '';
-        articles.forEach(article => renderArticle(article, news));
-        news.scrollIntoView();
-    })
-    .catch(err => console.log(`Request error: ${err}`))
+const sendRequest = async (source) => {
+    const response = await fetch(`${API_URL}sources=${source}&apiKey=${API_KEY}`);
+    const { articles } = await response.json();
+    return articles;
+}
+
+const renderNews = (articles) => {
+    news.innerHTML = '';
+    let articlesList = '';
+
+    articles.forEach(article => {
+        const value = renderArticle(article, news);
+        articlesList += value.innerHTML;
+    });
+
+    news.scrollIntoView();
+    news.innerHTML = articlesList;
 }
 
 const renderArticle = (data, news) => {
     const article = document.createElement('div');
-    article.classList.add('news-item');
     const { title, publishedAt, description, urlToImage } = data;
-    renderElement('img', 'news-item-img', urlToImage, article);
-    renderElement('div', 'news-item-title', title, article);
-    renderElement('div', 'news-item-description', description, article);
-    renderElement('div', 'news-item-date', publishedAt, article);
-    news.appendChild(article);
-}
+    article.innerHTML += 
+    `<div class="news-item">
+        <img class="news-item-img" src=${urlToImage} />
+        <div class="news-item-title">${title}</div>
+        <div class="news-item-description">${description}</div>
+        <div class="news-item-date">${publishedAt}</div>
+    </div>`;
 
-const renderElement = (tag, className, content, parent) => {
-    const element = document.createElement(tag);
-    element.className = className;
-
-    if (tag === 'img') {
-        element.src = content;
-    } else {
-        element.innerHTML = content;
-    }
-    
-    parent.appendChild(element);
+    return article;
 }
