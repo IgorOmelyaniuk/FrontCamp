@@ -18,13 +18,17 @@ body {
 
 #wrapper {
     display: flex;
+    display: -ms-flexbox;
     flex-direction: column;
+    -ms-flex-direction: column; 
     height: 100%;
 }
 
 .container {
     display: flex;
+    display: -ms-flexbox;
     justify-content: space-between;
+    -ms-flex-pack: space-between;
     height: 100%;
 }
 
@@ -44,8 +48,11 @@ img {
 
 .content {
     display: flex;
+    display: -ms-flexbox;
     justify-content: space-between;
+    -ms-flex-pack: space-between;
     flex: 1 0 auto;
+    -ms-flex: 1 0 auto;
     position: relative;
 }
 
@@ -132,8 +139,11 @@ img {
     margin-left: 25%;
     width: 75%;
     display: flex;
+    display: -ms-flexbox;
     justify-content: space-between;
+    -ms-flex-pack: space-between;
     flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
     padding: 50px 60px 0;
     background: #f1f5f8;
     box-sizing: border-box;
@@ -201,6 +211,7 @@ img {
 
 footer {
     flex: 0 0 auto;
+    -ms-flex: 0 0 auto;
     line-height: 50px;
     text-align: center;
 }
