@@ -1,3 +1,6 @@
+import '../styles/style.less';
+import '../styles/media.less';
+
 const API_KEY = '66e811207ca040b7815bd78758d16e1b';
 const API_URL = 'https://newsapi.org/v2/everything?';
 const news = document.querySelector('.news');
@@ -36,7 +39,7 @@ const renderNews = (articles) => {
     let articlesList = '';
 
     articles.forEach(article => {
-        const value = renderArticle(article, news);
+        const value = renderArticle(article);
         articlesList += value.innerHTML;
     });
 
@@ -44,7 +47,7 @@ const renderNews = (articles) => {
     news.innerHTML = articlesList;
 }
 
-const renderArticle = (data, news) => {
+const renderArticle = data => {
     const article = document.createElement('div');
     const { title, publishedAt, description, urlToImage } = data;
     article.innerHTML += 
