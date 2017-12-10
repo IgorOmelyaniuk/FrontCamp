@@ -1,6 +1,8 @@
 import '../styles/style.less';
 import '../styles/media.less';
 
+import { renderNews } from './news';
+
 const API_KEY = '66e811207ca040b7815bd78758d16e1b';
 const API_URL = 'https://newsapi.org/v2/everything?';
 const news = document.querySelector('.news');
@@ -16,7 +18,7 @@ const getNews = async (e) =>  {
         const source = element.getAttribute('data-source');
         toggleActiveClass(element);
         const articles = await sendRequest(source);
-        renderNews(articles);
+        renderNews(articles, news);
     }
 }
 
@@ -34,29 +36,3 @@ const sendRequest = async (source) => {
     return articles;
 }
 
-const renderNews = (articles) => {
-    news.innerHTML = '';
-    let articlesList = '';
-
-    articles.forEach(article => {
-        const value = renderArticle(article);
-        articlesList += value.innerHTML;
-    });
-
-    news.scrollIntoView();
-    news.innerHTML = articlesList;
-}
-
-const renderArticle = data => {
-    const article = document.createElement('div');
-    const { title, publishedAt, description, urlToImage } = data;
-    article.innerHTML += 
-    `<div class="news-item">
-        <img class="news-item-img" src=${urlToImage} />
-        <div class="news-item-title">${title}</div>
-        <div class="news-item-description">${description}</div>
-        <div class="news-item-date">${publishedAt}</div>
-    </div>`;
-
-    return article;
-}
