@@ -19,6 +19,7 @@
     .news {
         margin-left: 280px;
         justify-content: center;
+        -ms-flex-pack: center;
     }
     .news-item {
         width: 100%;
@@ -36,7 +37,9 @@
     }
     .content {
         justify-content: center;
+        -ms-flex-pack: center;
         flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
     }
     .navigation {
         position: relative;
