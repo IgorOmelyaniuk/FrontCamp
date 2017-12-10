@@ -6,10 +6,11 @@
         margin-left: 30%;
         width: 70%;
         padding: 50px 30px 0;
+        .news-item {
+            width: 46%;
+        }
     }
-    .news-item {
-        width: 46%;
-    }
+    
 }
 
 @media screen and (max-width: 930px) {
@@ -20,13 +21,13 @@
         margin-left: 280px;
         justify-content: center;
         -ms-flex-pack: center;
-    }
-    .news-item {
-        width: 100%;
-        margin-bottom: 30px;
-    }
-    .news:after {
-        display: none;
+        &::after {
+            display: none;
+        }
+        .news-item {
+            width: 100%;
+            margin-bottom: 30px;
+        }
     }
 }
 
@@ -51,10 +52,9 @@
         margin-left: 0;
         width: 100%;
         padding: 30px 20px 0;
+        .news-title {
+            margin-bottom: 30px;
+            font-size: 21px;
+        }
     }
-    .news-title {
-        margin-bottom: 30px;
-        font-size: 21px;
-    }
-    
 } 
