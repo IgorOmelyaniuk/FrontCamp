@@ -1,24 +1,19 @@
 import '../styles/style.less';
 import '../styles/media.less';
 
-import { renderNews } from './news';
-
-const API_KEY = '66e811207ca040b7815bd78758d16e1b';
-const API_URL = 'https://newsapi.org/v2/everything?';
 const news = document.querySelector('.news');
 const nav = document.querySelector('.navigation');
 const links = document.querySelectorAll('.navigation-link');
 
-nav.addEventListener('click', e => getNews(e));
+nav.addEventListener('click', e => clickOnLink(e));
 
-const getNews = async (e) =>  {
+const clickOnLink = (e) =>  {
     const element = e.target;
     
     if (element.classList.contains('navigation-link')) {
         const source = element.getAttribute('data-source');
         toggleActiveClass(element);
-        const articles = await sendRequest(source);
-        renderNews(articles, news);
+        renderButton(element, source);
     }
 }
 
@@ -30,9 +25,16 @@ const toggleActiveClass = element => {
     element.classList.add('active');
 }
 
-const sendRequest = async (source) => {
-    const response = await fetch(`${API_URL}sources=${source}&apiKey=${API_KEY}`);
-    const { articles } = await response.json();
-    return articles;
+const renderButton = (element, source) => {
+    const button = document.createElement('button');
+    button.innerHTML = 'Get news';
+    element.appendChild(button);
+    button.addEventListener('click', e => {
+        System.import('./news')
+            .then(module => {
+            module.default(source, news);
+        });
+    });
 }
+
 
