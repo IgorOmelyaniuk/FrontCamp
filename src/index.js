@@ -2,6 +2,8 @@ import '../styles/style.less';
 import '../styles/media.less';
 import renderButton from './button';
 
+import * as json from '../test.json'
+
 const news = document.querySelector('.news');
 const nav = document.querySelector('.navigation');
 const links = document.querySelectorAll('.navigation-link');

@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const customLoader = require("custom-loader");
 
 module.exports = {
     entry: [
@@ -56,8 +57,22 @@ module.exports = {
             {
                 test: /\.html$/,
                 use: 'html-loader'
+            },
+            {
+                test: /\.json$/,
+                use:[
+                    {
+                        loader: 'json-loader',
+                    },
+                    {
+                        loader: 'my-loader'
+                    }
+                ],
             }
 
         ]
-    }
+    },
+    resolveLoader: {
+        modules: ['node_modules', path.resolve(__dirname, 'loaders')]
+    },
 };
