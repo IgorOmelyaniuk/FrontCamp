@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const customLoader = require("custom-loader");
 
 module.exports = {
     entry: [
@@ -29,7 +28,7 @@ module.exports = {
             filename: 'index.html',
             template: './index.html',
             inject: true
-        }),
+        })
     ],
 
     module: {
