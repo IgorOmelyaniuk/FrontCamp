@@ -7,7 +7,6 @@ module.exports = function (source) {
             data[key] = jsonContent[key];
         }
     }
-    console.log(source);
-    console.log(JSON.stringify(data));
+
     return JSON.stringify(data);
 };
