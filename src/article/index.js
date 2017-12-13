@@ -1,15 +1,4 @@
-const renderNews = (articles, news) => {
-    news.innerHTML = '';
-    let articlesList = '';
-
-    articles.forEach(article => {
-        const value = renderArticle(article);
-        articlesList += value.innerHTML;
-    });
-
-    news.scrollIntoView();
-    news.innerHTML = articlesList;
-}
+import './style.less';
 
 const renderArticle = data => {
     const article = document.createElement('div');
@@ -25,4 +14,4 @@ const renderArticle = data => {
     return article;
 }
 
-module.exports = { renderNews };
+export default renderArticle;
