@@ -15,7 +15,8 @@ const clickOnLink = (e) =>  {
     
     if (element.classList.contains('navigation-link')) {
         const source = element.getAttribute('data-source');
+        news.innerHTML = '';
         toggleActiveClass(element, links);
-        renderButton(nav, news, source);
+        renderButton(news, source);
     }
 }

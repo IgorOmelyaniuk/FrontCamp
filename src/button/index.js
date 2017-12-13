@@ -1,10 +1,15 @@
 import './style.less';
 
-const renderButton = (nav, news, source) => {
-    const button = document.createElement('button');
-    button.classList.add('lazy-button');
-    button.innerHTML = 'Get News';
-    nav.appendChild(button);
+const renderButton = (news, source) => {
+    let button = document.querySelector('.lazy-button');
+
+    if (!button) {
+        button = document.createElement('button');
+        button.classList.add('lazy-button');
+        button.innerHTML = 'Show News';
+        news.appendChild(button);
+    }
+    
 
     button.addEventListener('click', e => {
         System.import('../getNews')
