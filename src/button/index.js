@@ -1,3 +1,5 @@
+import './style.less';
+
 const renderButton = (nav, news, source) => {
     const button = document.createElement('button');
     button.classList.add('lazy-button');
@@ -5,7 +7,7 @@ const renderButton = (nav, news, source) => {
     nav.appendChild(button);
 
     button.addEventListener('click', e => {
-        System.import('./news')
+        System.import('../getNews')
             .then(module => {
             module.default(source, news);
         });

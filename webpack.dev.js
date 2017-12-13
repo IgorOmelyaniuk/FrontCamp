@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: [
@@ -21,9 +20,6 @@ module.exports = {
 
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new ExtractTextPlugin({
-            filename: '[name].css',
-        }),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './index.html',
@@ -40,14 +36,11 @@ module.exports = {
             },
             {
                 test: /\.(css|less)$/,
-                use: ExtractTextPlugin.extract({
-                    use: [{
-                        loader: 'css-loader'
-                    }, {
-                        loader: 'less-loader'
-                    }],
-                    fallback: 'style-loader'
-                })
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'less-loader'
+                ]
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
@@ -68,7 +61,6 @@ module.exports = {
                     }
                 ],
             }
-
         ]
     },
     resolveLoader: {

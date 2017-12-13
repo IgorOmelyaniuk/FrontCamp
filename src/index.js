@@ -1,7 +1,7 @@
 import '../styles/style.less';
 import '../styles/media.less';
-import renderButton from './button';
-
+import renderButton from './button/index';
+import {toggleActiveClass} from './service';
 import * as json from '../test.json'
 
 const news = document.querySelector('.news');
@@ -15,15 +15,7 @@ const clickOnLink = (e) =>  {
     
     if (element.classList.contains('navigation-link')) {
         const source = element.getAttribute('data-source');
-        toggleActiveClass(element);
+        toggleActiveClass(element, links);
         renderButton(nav, news, source);
     }
-}
-
-const toggleActiveClass = element => {
-    const news = document.querySelector('.news');
-    for (let i = 0; i < links.length; i++) {
-        links[i].classList.remove('active');
-    }
-    element.classList.add('active');
 }
