@@ -1,7 +1,9 @@
 import renderArticle from '../article/index';
 import './style.less';
 
-const renderNews = (articles, news) => {
+const news = document.querySelector('.news');
+
+const renderNews = articles => {
     news.innerHTML = '';
     let articlesList = '';
 

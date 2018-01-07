@@ -1,9 +1,11 @@
 import sendRequest from './sendRequest';
 import renderNews from './news/index';
+import store from './store';
 
-const getNews = async (source, news) => {
+const getNews = async () => {
+    const { source } = store.getState();
     const articles = await sendRequest(source);
-    renderNews(articles, news);
+    renderNews(articles);
 }
 
 export default getNews;

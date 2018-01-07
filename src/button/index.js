@@ -1,7 +1,7 @@
 import './style.less';
 
 const renderButton = (news, source) => {
-    let button = document.querySelector('.lazy-button');
+    // let button = document.querySelector('.lazy-button');
 
     if (!button) {
         button = document.createElement('button');
