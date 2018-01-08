@@ -10,8 +10,6 @@ import { UPDATE_SOURCE } from './config';
 const nav = document.querySelector('.navigation');
 const links = document.querySelectorAll('.navigation-link');
 
-store.subscribe(getNews)
-
 nav.addEventListener('click', e => clickOnLink(e));
 
 const clickOnLink = (e) =>  {
@@ -22,12 +20,13 @@ const clickOnLink = (e) =>  {
         toggleActiveClass(element, links);
         changeLink(source);
     }
-}
+};
 
 const changeLink = source => {
-    console.log(source);
     store.dispatch({
         type: UPDATE_SOURCE,
         payload: source
     })
-}
+};
+
+store.subscribe(getNews);

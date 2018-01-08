@@ -1,19 +1,19 @@
 import renderArticle from '../article/index';
+import { divFactory } from '../patterns';
 import './style.less';
 
 const news = document.querySelector('.news');
 
 const renderNews = articles => {
     news.innerHTML = '';
-    let articlesList = '';
-
+    const articlesList = divFactory.create();
     articles.forEach(article => {
-        const value = renderArticle(article);
-        articlesList += value.innerHTML;
+        const articleItem = renderArticle(article);
+        articlesList.appendChild(articleItem);
     });
 
     news.scrollIntoView();
-    news.innerHTML = articlesList;
+    news.innerHTML = articlesList.innerHTML;
 }
 
 export default renderNews;
