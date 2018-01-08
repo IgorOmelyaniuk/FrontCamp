@@ -1,8 +1,7 @@
 import '../styles/style.less';
 import '../styles/media.less';
-// import renderButton from './button/index';
 import getNews from './getNews';
-import {toggleActiveClass} from './service';
+import { Dom } from './patterns';
 import * as json from '../test.json'
 import store from './store';
 import { UPDATE_SOURCE } from './config';
@@ -17,7 +16,9 @@ const clickOnLink = (e) =>  {
     
     if (element.classList.contains('navigation-link')) {
         const source = element.getAttribute('data-source');
-        toggleActiveClass(element, links);
+        const links = Dom.get('.navigation-link');
+        Dom.removeClass('active', links);
+        Dom.addClass('active', element);
         changeLink(source);
     }
 };

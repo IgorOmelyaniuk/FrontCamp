@@ -12,7 +12,6 @@ const createStore = reducer => {
                 return listener()});
         },
 
-        //Observer pattern
         subscribe: listener => {
             listeners.push(listener);
             return () => {

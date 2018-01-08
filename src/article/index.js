@@ -1,9 +1,10 @@
 import './style.less';
-import { divFactory } from '../patterns'
+import { divFactory, LogDecorator } from '../patterns'
 
 const renderArticle = data => {
     const { title, publishedAt, description, urlToImage } = data;
-    const articleItem = divFactory.create({class: 'news-item'});
+    const loggerDecorator = new LogDecorator(divFactory);
+    const articleItem = loggerDecorator.create({class: 'news-item'});
 
     articleItem.innerHTML = 
         `<img class="news-item-img" src=${urlToImage} />
