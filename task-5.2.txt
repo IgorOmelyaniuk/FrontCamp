@@ -1,0 +1,162 @@
+1.Query:
+	db.airlines.aggregate([
+		{
+			$group: {
+				_id: "$class",
+				total: {$sum: 1}
+			}
+		},
+		{
+			$project: {
+				_id: 0,
+				class: "$_id",
+				total: "$total"
+			}
+		}
+	])
+Result: 
+	{"class": "F", "total": 140343},
+	{"class": "L", "total": 23123},
+	{"class": "P", "total": 5683},
+	{"class": "G", "total": 17499}
+
+2.Query:
+	db.airlines.aggregate([
+		{
+			$match: {
+				destCountry: {$ne: "United States"}
+			}
+		},
+		{
+			$group: {
+				_id: "$destCity",
+				avgPassengers: {$avg: "$passengers"}
+			}
+		},
+		{
+			$sort: {
+				avgPassengers: -1
+			}
+		},
+		{
+			$project: {
+				_id: 0,
+				city: "$_id",
+				avgPassengers: "$avgPassengers: "
+			}
+		},
+		{
+			$limit: 3
+		}
+	])
+Result:
+	{"city": "Abu Dhabi, United Arab Emirates", "avgPassengers: 8052.380952380952},
+	{"city": "Dubai, United Arab Emirates", "avgPassengers: 7176.596638655462},
+	{"city": "Guangzhoum China", "avgPassengers: 7103.333333333333}
+
+3.Query: 
+	db.airlines.aggregate([
+		{
+			$match: {destCountry: "Latvia"}
+		},
+		{
+			$group: {
+				_id: "$destCountry",
+				carriers: {$addToSet: "$carrier"}
+			}
+		}
+	])
+Result:
+	{"_id": "Latvia", "carriers": ["Uzbekistan Airways", "Blue Jet SP Z o o", "JetClub AG"]}
+
+4.Query:
+	db.airlines.aggregate([
+		{
+			$match: {
+				originCountry: "United States",
+			}
+		},
+		{
+			$match: {
+				$or: [
+					{destCountry: "Spain"},
+					{destCountry: "Italy"},
+					{destCountry: "Greece"}
+				]
+			}
+		},
+		{
+			$group: {
+				_id: "$carrier",
+				total: {$sum: "$passengers"}
+			}
+		},
+		{
+			$sort: {total: -1}
+		},
+		{
+			$limit: 10
+		},
+		{
+			$skip: 3
+		}
+	])
+Result:
+	{"_id": "Compagnia Aerea Italiana", "total": 280256},
+	{"_id": "United Air Lines Inc.", "total": 229936},
+	{"_id": "Emirates", "total": 100903},
+	{"_id": "Air Europa", "total": 94968},
+	{"_id": "Meridiana S.p.A", "total": 20308},
+	{"_id": "Norwegian Air Shuttle ASA", "total": 13344},
+	{"_id": "VistaJet Limited", "total": 183}
+
+5.Query:
+	db.airlines.aggregate([
+		{
+			$match: {originCountry: "United States"}
+		},
+		{
+			$group: {
+				_id: {state: "$originState", city: "$originCity"},
+				total: {$sum: "$passengers"}
+			}
+		},
+		{
+			$sort: {
+				"_id.state": 1,
+				"total: -1
+			}
+		},
+		{
+			$group: {
+				_id: {state: "$_id.state"},
+				city: {$first: "$_id.city"},
+				total: {$max: "$total"}
+			}
+		},
+		{
+			$sort: {
+				"_id.state": 1
+			}
+		},
+		{
+			$project: {
+				_id: 0,
+				location: {
+					state: "$_id.state",
+					city: "$city"
+				},
+				totalPassengers: "$total"
+			}
+		},
+		{
+			$limit: 5
+		}
+	])
+Result:
+	{"location": {"state": "Alabama", "city: "Birmingham, AL"}, "totalPassengers": 760120},
+	{"location": {"state": "Alaska", "city: "Anchorage, AK"}, "totalPassengers": 1472404},
+	{"location": {"state": "Arizona", "city: "Phoenix, AZ"}, "totalPassengers": 13152753},
+	{"location": {"state": "Arkansas", "city: "Little Rock, AR"}, "totalPassengers": 571452},
+	{"location": {"state": "California", "city: "Los Angeles, CA"}, "totalPassengers": 23701556}
+	
